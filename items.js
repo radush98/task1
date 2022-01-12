@@ -6,6 +6,7 @@ const notes = [
         category:'Task',
         content:'lorem ipsum bla-...',
         dates:'',
+        archive:false
     },
     {
         id:1,
@@ -14,6 +15,7 @@ const notes = [
         category:'Random thought',
         content:'The evolution is...',
         dates:'',
+        archive:false
     },
     {
         id:2,
@@ -22,6 +24,7 @@ const notes = [
         category:'Idea',
         content:'Implemented new feature',
         dates:'',
+        archive:false
     },
     {
         id:3,
@@ -30,6 +33,7 @@ const notes = [
         category:'Task',
         content:'New startup',
         dates:'',
+        archive:false
     },
     {
         id:4,
@@ -38,6 +42,7 @@ const notes = [
         category:'Task',
         content:'Meet William',
         dates:'',
+        archive:false
     }
 ];
 
