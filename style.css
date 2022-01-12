@@ -111,9 +111,10 @@ td{
 }
 
 .form{
+    border:1px solid black;
     background-color: rgb(200, 245, 253);
     position: absolute;
-    width:100%;
+    width:50%;
     height:fit-content;
     display: flex;
     flex-direction: column;
@@ -140,7 +141,8 @@ td{
 #name,
 #category,
 #content{
-    width:100%;
+    width:98%;
+    margin:0 auto;
 }
 
 #content{
