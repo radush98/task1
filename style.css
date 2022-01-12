@@ -1,0 +1,153 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+.body{
+    width:100vw;
+    overflow:hidden;
+}
+
+.wrapper{
+    position:relative;
+    max-width:100%;
+    padding:25px;
+}
+
+.top-table{
+    max-width:100%;
+    height:50vh;
+    overflow-y:scroll;
+    color:white
+}
+
+.table{
+    text-align:left;
+    border-collapse: collapse;
+    max-width:100%;
+}
+
+col{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#first-column{
+    width:20px;
+}
+
+#last-column{
+    display: flex;
+    justify-content: center;
+    gap:10px
+}
+
+.table-head{
+    background-color: grey;
+    
+}
+
+.table-body > tr{
+    background-color: rgb(199, 197, 197);
+    border-top: 10px solid white;
+}
+
+td:first-child{
+    padding-left:10px;
+}
+
+td:last-child{
+    padding-right:10px;
+}
+
+td{
+    line-height: 40px;
+    max-width: fit-content;
+    overflow:hidden;
+}
+
+.task-icon{
+    padding:5px;
+    text-align: center;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    -ms-border-radius:50%;
+    -o-border-radius:50%;
+    background-color: grey;
+}
+
+.table-body-button{
+    border:none;
+    background-color: transparent;
+    cursor: pointer;
+    width:20px;
+    height: 20px;
+}
+
+.table-body-button-icon{
+    transform: scale(1.5);
+    color:black;
+    width:20px;
+    height: 20px;
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+}
+
+#add-btn{
+    width:100px;
+    padding:5px;
+    color:black;
+    margin-top: 20px;
+    margin-left:100%;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+}
+
+.form{
+    background-color: rgb(200, 245, 253);
+    position: absolute;
+    width:100%;
+    height:fit-content;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    align-items: center;
+    top:50%;
+    right:50%;
+    transform: translate(50%, -50%);
+    -webkit-transform: translate(50%, -50%);
+    -moz-transform: translate(50%, -50%);
+    -ms-transform: translate(50%, -50%);
+    -o-transform: translate(50%, -50%);
+    padding:20px 0;
+}
+
+.hidden{
+    display: none;
+}
+
+.form-element{
+    width:350px;
+}
+
+#name,
+#category,
+#content{
+    width:100%;
+}
+
+#content{
+    resize:none;
+    height: 200px;
+}
+
+#submit{
+    width:80px;
+}
