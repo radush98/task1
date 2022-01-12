@@ -15,7 +15,7 @@
         <div class="top-table">
             <table class="table">
                 <colgroup>
-                    <col id="first column">
+                    <col id="first-column">
                     <col>
                     <col>
                     <col>
@@ -42,19 +42,6 @@
                     </tr>
                 </thead>
                 <tbody class="table-body" id="main-content">
-                    <!-- <tr>
-                        <td><i class='bx bx-task task-icon'></i></td>
-                        <td>Shopping List</td>
-                        <td>April 2020</td>
-                        <td>Task</td>
-                        <td>Tomatoes</td>
-                        <td></td>
-                        <td>
-                            <button class="table-body-button"><i class='bx bxs-edit-alt table-body-button-icon'></i></button>
-                            <button class="table-body-button"><i class='bx bxs-archive-in table-body-button-icon'></i></button>
-                            <button class="table-body-button"><i class='bx bxs-trash-alt table-body-button-icon'></i></button>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -79,7 +66,28 @@
                 <textarea id="content" required></textarea>
             </div>
             <button id="submit">Submit</button>
+            <button id="close">X</button>
         </form>
+        <div class="bottom-table">
+            <table class="table table-summary">
+                <colgroup>
+                    <col id="bottom-first-col">
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <thead class="table-head">
+                    <tr>
+                        <td></td>
+                        <td>Note Category</td>
+                        <td>Active</td>
+                        <td>Archived</td>
+                    </tr>
+                </thead>
+                <tbody class="table-body" id="statistic">
+                </tbody>
+            </table>
+        </div>
     </div>
     <script src="items.js" type="module"></script>
     <script src="script.js" type="module"></script>
