@@ -12,7 +12,7 @@ const notes = [
         id:1,
         name:"The theory of evolution",
         created:'July 30, 2020',
-        category:'Random thought',
+        category:'Random_thought',
         content:'The evolution is...',
         dates:'',
         archive:false

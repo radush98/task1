@@ -1,6 +1,8 @@
+import { categories } from "../data/categories.js"
+
 function getElement(obj, isArchive) { //return pattern with data
     return `<tr class=${!isArchive ? 'row' : 'archive-row'}>
-            <td><i class='bx bx-task task-icon'></i></td>
+            <td><img src="${getIcon(obj.category)}"></td>
             <td>${obj.name}</td>
             <td class="created">${obj.created}</td>
             <td>${obj.category}</td>
@@ -23,11 +25,16 @@ function getControlButtons(isArchive) {
 
 function getStatisticElement(obj) {
     return `<tr>
-            <td><i class='bx bx-task task-icon'></i></td>
+            <td><img src="${getIcon(obj.note_category)}"></td>
             <td>${obj.note_category}</td>
             <td class="created">${obj.active}</td>
             <td>${obj.archived}</td>
             </tr>`
+}
+
+function getIcon(categoryName){
+    console.log(categories.filter(category => category.name === categoryName))
+    return categories.filter(category => category.name === categoryName)[0].icon;
 }
 
 export {getElement, getStatisticElement}

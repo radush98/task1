@@ -1,4 +1,4 @@
-import { showForm } from "./form/form";
+import { showForm } from "./form/form.js";
 
 const createNoteBtn = document.querySelector('#add-btn'); //btn
 const closeArchiveBtn = document.querySelector("#close-archived");

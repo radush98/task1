@@ -1,15 +1,15 @@
 const categories = [
     {
-        name:"Task",
-        icon:''
+        name:'Task',
+        icon:'img/list.png'
     },
     {
-        name:"Random thought",
-        icon:''
+        name:'Random_thought',
+        icon:'img/thought.png'
     },
     {
-        name:"Idea",
-        icon:''
+        name:'Idea',
+        icon:'img/idea.png'
     }
 ];
 

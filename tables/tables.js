@@ -4,12 +4,18 @@ import { getElement, getStatisticElement } from "../render/render.js";
 import calculateStatistic from "../additional/statistic.js";
 
 const table = document.querySelector('#main-content'); //table;
-const archiveTable = document.querySelector('#archive');
-const statisticTable = document.querySelector('#statistic');//
+const archiveTable = document.querySelector('#archive');//archive table
+const statisticTable = document.querySelector('#statistic');//statistic table
+const tables = [table, archiveTable, statisticTable];
+
+const archiveAllBtn = document.querySelector('#archive-all');
+const deleteAllBtn = document.querySelector('#delete-all');
+const unarchiveAllBtn = document.querySelector('#unarchive-all');
 
 fillTables();
+updateListeners();
 
-function updateListeners() { //update our event listeners 
+function updateMainTableListeners() {
     const rows = document.getElementsByClassName('row');//all our edit buttons
     for (let row of rows) {
         row.addEventListener('click', e => {
@@ -27,22 +33,53 @@ function updateListeners() { //update our event listeners
     }
 }
 
+function archiveToggle(archive){
+    notes.forEach((note) => {
+        note.archive = archive;
+    })
+    fillTables();
+}
+
+archiveAllBtn.addEventListener('click', () => {
+    archiveToggle(true);
+})
+
+unarchiveAllBtn.addEventListener('click', () => {
+    archiveToggle(false);
+})
+
+deleteAllBtn.addEventListener('click', () => {
+    notes.splice(0, notes.length);
+    fillTables();
+})
+
+function updateArchiveListeners() {
+    const rows = document.getElementsByClassName('archive-row');
+    for (let row of rows) {
+        row.addEventListener('click', e => {
+            const caller = e.target;
+            if (caller.classList.contains('table-body-button-unarchive')) { //if we pressed edit
+                unarchive(row);
+            }
+        })
+    }
+}
+
+function updateListeners() { //update our event listeners 
+    updateMainTableListeners();
+    updateArchiveListeners();
+}
+
 function getIndexOfObject(row) {
     const data = row.querySelector('.created').innerText;
     return notes.indexOf(notes.find(note => note.created === data));
 }
 
-function clearTables(table, statisticTable) { //clear our table
-    while (table.hasChildNodes()) {
-        table.removeChild(table.firstChild);
-    }
-
-    while (statisticTable.hasChildNodes()) {
-        statisticTable.removeChild(statisticTable.firstChild);
-    }
-
-    while (archiveTable.hasChildNodes()) {
-        archiveTable.removeChild(archiveTable.firstChild);
+function clearTables() {
+    for (let t of tables) {
+        while (t.hasChildNodes()) {
+            t.removeChild(t.firstChild);
+        }
     }
 }
 
@@ -62,5 +99,10 @@ function fillTables() { //add our notes to DOM
     updateListeners();
 }
 
-export {table , updateListeners, getIndexOfObject, fillTables};
+function unarchive(row) {
+    notes[getIndexOfObject(row)].archive = false;
+    fillTables();
+}
+
+export { table, updateListeners, getIndexOfObject, fillTables };
 

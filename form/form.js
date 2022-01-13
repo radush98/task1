@@ -10,6 +10,10 @@ const submit = document.querySelector('#submit'); //submit bnt (form)
 const close = document.querySelector("#close");
 const categorySelect = document.querySelector('#category');
 
+const name = form.querySelector("#name");
+const category = form.querySelector("#category");
+const content = form.querySelector("#content");
+
 let position = null;
 createCategories();
 
@@ -23,9 +27,9 @@ submit.addEventListener('click', () => {
         notes.push(newObj) //add our object to DB
     }
     else {
-        notes[position].name = form.querySelector("#name").value;
-        notes[position].category = form.querySelector("#category").value;
-        notes[position].content = form.querySelector("#content").value;
+        notes[position].name = name.value;
+        notes[position].category = category.value;
+        notes[position].content = content.value;
         notes[position].dates = parseData(notes[position].content);
         position = null;
     }
@@ -52,17 +56,16 @@ function archive(row) {
 }
 
 function fillForm(index) {
-    form.querySelector("#name").value = notes[index].name;
-    console.log(notes[index].category)
-    form.querySelector("#category").value = notes[index].category;
-    form.querySelector("#content").value = notes[index].content;
+    name.value = notes[index].name;
+    category.value = notes[index].category;
+    notes.value = notes[index].content;
     position = index;
 }
 
 function resetForm() {
-    form.querySelector("#name").value = '';
-    form.querySelector("#category").value = '';
-    form.querySelector("#content").value = '';
+    name.value = '';
+    category.value = '';
+    notes.value = '';
 }
 
 function closeForm() {
@@ -85,11 +88,11 @@ function createNewNote() {
 
     const newObj = { //create new object
         id: createId(),
-        name: form.querySelector("#name").value,
+        name: name.value,
         created: `${date.toLocaleString('en', { month: 'long' })} ${date.getDate()}, ${date.getFullYear()}`,
-        category: form.querySelector("#category").value,
-        content: form.querySelector("#content").value,
-        dates: parseData(form.querySelector("#content").value)
+        category: category.value,
+        content: content.value,
+        dates: parseData(content.value)
     }
 
     return newObj;
