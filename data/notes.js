@@ -24,7 +24,7 @@ const notes = [
         category:'Idea',
         content:'Implemented new feature',
         dates:'',
-        archive:true
+        archive:false
     },
     {
         id:3,

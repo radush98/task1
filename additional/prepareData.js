@@ -1,4 +1,4 @@
-import notes from "./notes.js";
+import notes from "../data/notes.js";
 
 const regex = /\d{2}([\/.-])\d{2}\1\d{4}/g;
 notes.forEach(elem => elem.dates = parseData(elem.content))

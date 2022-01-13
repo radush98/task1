@@ -1,5 +1,5 @@
-import notes from '/notes.js'
-import { getCategories } from '/categories.js'
+import notes from '../data/notes.js'
+import { getCategories } from '../data/categories.js'
 
 const categories = getCategories();
 
