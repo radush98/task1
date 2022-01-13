@@ -65,7 +65,7 @@ function fillForm(index) {
 function resetForm() {
     name.value = '';
     category.value = '';
-    notes.value = '';
+    content.value = '';
 }
 
 function closeForm() {
