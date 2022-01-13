@@ -1,4 +1,4 @@
-import notes from '/items.js'
+import notes from '/notes.js'
 import { getCategories } from '/categories.js'
 
 const categories = getCategories();
@@ -12,8 +12,6 @@ function calculateStatistic() {
             archived: notes.filter(elem => elem.category == category && elem.archive == true).length,
         })
     }
-
-    console.log(notes)
     return statistic;
 }
 

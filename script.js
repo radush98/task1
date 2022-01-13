@@ -1,24 +1,30 @@
-import notes from './items.js'
+import notes from './notes.js'
 import calculateStatistic from './statistic.js';
 import { getCategories } from './categories.js';
+import { parseData } from './prepareData.js';
 
 const table = document.querySelector('#main-content'); //table;
 const statisticTable = document.querySelector('#statistic');//
 const createNoteBtn = document.querySelector('#add-btn'); //btn
 const form = document.querySelector('#form'); //form
 const submit = document.querySelector('#submit'); //submit bnt (form)
-const rows = document.getElementsByTagName('tr');//all our edit buttons
+
 const close = document.querySelector("#close");
 const categorySelect = document.querySelector('#category');
 const archiveTable = document.querySelector('#archive');
 const closeArchiveBtn = document.querySelector("#close-archived");
+const openArchiveBtn = document.querySelector("#open-archive");
 
 let position = null;
 
 fillTables();
 createCategories();
 
-closeArchiveBtn.addEventListener('click',()=>{
+openArchiveBtn.addEventListener('click', () => {
+    closeArchiveBtn.parentNode.classList.remove('hidden');
+})
+
+closeArchiveBtn.addEventListener('click', () => {
     closeArchiveBtn.parentNode.classList.add('hidden');
 })
 
@@ -39,6 +45,7 @@ submit.addEventListener('click', () => {
         notes[position].name = form.querySelector("#name").value;
         notes[position].category = form.querySelector("#category").value;
         notes[position].content = form.querySelector("#content").value;
+        notes[position].dates = parseData(notes[position].content);
         position = null;
     }
 
@@ -49,6 +56,7 @@ submit.addEventListener('click', () => {
 close.addEventListener('click', closeForm)
 
 function updateListeners() { //update our event listeners 
+    const rows = document.getElementsByClassName('row');//all our edit buttons
     for (let row of rows) {
         row.addEventListener('click', e => {
             const caller = e.target;
@@ -85,29 +93,33 @@ function clearTables(table, statisticTable) { //clear our table
         table.removeChild(table.firstChild);
     }
 
-    while (statisticTable.hasChildNodes()){
+    while (statisticTable.hasChildNodes()) {
         statisticTable.removeChild(statisticTable.firstChild);
+    }
+
+    while (archiveTable.hasChildNodes()) {
+        archiveTable.removeChild(archiveTable.firstChild);
     }
 }
 
 function fillTables() { //add our notes to DOM
-    clearTables(table, statisticTable);
+    clearTables(table, statisticTable, archiveTable);
     for (let obj of notes) {
         if (!obj.archive)
-            table.insertAdjacentHTML('beforeend', getElement(obj));
-        else{
-            archiveTable.insertAdjacentHTML('beforeend', getElement(obj))
+            table.insertAdjacentHTML('beforeend', getElement(obj, false));
+        else {
+            archiveTable.insertAdjacentHTML('beforeend', getElement(obj, true))
         }
     }
 
-    for (let obj of calculateStatistic()){
+    for (let obj of calculateStatistic()) {
         statisticTable.insertAdjacentHTML('beforeend', getStatisticElement(obj));
     }
     updateListeners();
 }
 
-function getElement(obj) { //return pattern with data
-    return `<tr id="${obj.id}">
+function getElement(obj, isArchive) { //return pattern with data
+    return `<tr class=${!isArchive ? 'row' : 'archive-row'}>
             <td><i class='bx bx-task task-icon'></i></td>
             <td>${obj.name}</td>
             <td class="created">${obj.created}</td>
@@ -115,14 +127,21 @@ function getElement(obj) { //return pattern with data
             <td>${obj.content}</td>
             <td>${obj.dates}</td>
             <td>
-                <button class="table-body-button-edit">Edit</button>
-                <button class="table-body-button-archive">Archive</button>
-                <button class="table-body-button-delete">Delete</button>
+                ${getControlButtons(isArchive)}
             </td>
             </tr>`
 }
 
-function getStatisticElement(obj){
+function getControlButtons(isArchive) {
+    if (isArchive)
+        return `<button class="table-body-button-unarchive">Unarchive</button>`
+    else
+        return `<button class="table-body-button-edit">Edit</button>
+                <button class="table-body-button-archive">Archive</button>
+                <button class="table-body-button-delete">Delete</button>`
+}
+
+function getStatisticElement(obj) {
     return `<tr>
             <td><i class='bx bx-task task-icon'></i></td>
             <td>${obj.note_category}</td>
@@ -148,7 +167,8 @@ function createNewNote() {
         name: form.querySelector("#name").value,
         created: `${date.toLocaleString('en', { month: 'long' })} ${date.getDate()}, ${date.getFullYear()}`,
         category: form.querySelector("#category").value,
-        content: form.querySelector("#content").value
+        content: form.querySelector("#content").value,
+        dates: parseData(form.querySelector("#content").value)
     }
 
     return newObj;

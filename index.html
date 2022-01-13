@@ -20,7 +20,7 @@
                     <col>
                     <col>
                     <col>
-                    <col>
+                    <col class="date-column">
                     <col class="last-column">
                 </colgroup>
                 <thead class="table-head">
@@ -46,7 +46,7 @@
             </table>
         </div>
         <div class="main-controls">
-            <button class="main-controls-button">Archive</button>
+            <button class="main-controls-button" id="open-archive">Archive</button>
             <button class="main-controls-button" id="add-btn">Create Note</button>
         </div>
         <form class="form hidden" id="form" data-element-id="">
@@ -119,9 +119,10 @@
                 </tbody>
             </table>
         </div>
-        <script src="items.js" type="module"></script>
+        <script src="notes.js" type="module"></script>
         <script src="categories.js" type="module"></script>
         <script src="statistic.js" type="module"></script>
+        <script src="prepareData.js" type="module"></script>
         <script src="script.js" type="module"></script>
 </body>
 
