@@ -1,4 +1,6 @@
 import notes from './items.js'
+import calculateStatistic from './statistic.js';
+import { getCategories } from './categories.js';
 
 const table = document.querySelector('#main-content'); //table;
 const statisticTable = document.querySelector('#statistic');//
@@ -7,10 +9,18 @@ const form = document.querySelector('#form'); //form
 const submit = document.querySelector('#submit'); //submit bnt (form)
 const rows = document.getElementsByTagName('tr');//all our edit buttons
 const close = document.querySelector("#close");
+const categorySelect = document.querySelector('#category');
+const archiveTable = document.querySelector('#archive');
+const closeArchiveBtn = document.querySelector("#close-archived");
 
 let position = null;
 
-fillTable();
+fillTables();
+createCategories();
+
+closeArchiveBtn.addEventListener('click',()=>{
+    closeArchiveBtn.parentNode.classList.add('hidden');
+})
 
 createNoteBtn.addEventListener('click', () => {
     showForm(); //show form
@@ -33,7 +43,7 @@ submit.addEventListener('click', () => {
     }
 
     closeForm(); //hide our form
-    fillTable();
+    fillTables();
 })
 
 close.addEventListener('click', closeForm)
@@ -42,13 +52,13 @@ function updateListeners() { //update our event listeners
     for (let row of rows) {
         row.addEventListener('click', e => {
             const caller = e.target;
-            if (caller.classList.contains('table-body-button-edit')) {
+            if (caller.classList.contains('table-body-button-edit')) { //if we pressed edit
                 edit(row);
             }
-            else if (caller.classList.contains('table-body-button-delete')) {
+            else if (caller.classList.contains('table-body-button-delete')) {//if we pressed delete
                 deleteNote(row);
             }
-            else if (caller.classList.contains('table-body-button-archive')) {
+            else if (caller.classList.contains('table-body-button-archive')) {//if we pressed archive
                 archive(row);
             }
         })
@@ -62,25 +72,36 @@ function edit(row) { //edit logic
 
 function deleteNote(row) {
     notes.splice(getIndexOfObject(row), 1);
-    fillTable();
+    fillTables();
 }
 
 function archive(row) {
     notes[getIndexOfObject(row)].archive = true;
-    fillTable();
+    fillTables();
 }
 
-function clearTable(table) { //clear our table
+function clearTables(table, statisticTable) { //clear our table
     while (table.hasChildNodes()) {
         table.removeChild(table.firstChild);
     }
+
+    while (statisticTable.hasChildNodes()){
+        statisticTable.removeChild(statisticTable.firstChild);
+    }
 }
 
-function fillTable() { //add our notes to DOM
-    clearTable(table);
+function fillTables() { //add our notes to DOM
+    clearTables(table, statisticTable);
     for (let obj of notes) {
         if (!obj.archive)
             table.insertAdjacentHTML('beforeend', getElement(obj));
+        else{
+            archiveTable.insertAdjacentHTML('beforeend', getElement(obj))
+        }
+    }
+
+    for (let obj of calculateStatistic()){
+        statisticTable.insertAdjacentHTML('beforeend', getStatisticElement(obj));
     }
     updateListeners();
 }
@@ -98,6 +119,15 @@ function getElement(obj) { //return pattern with data
                 <button class="table-body-button-archive">Archive</button>
                 <button class="table-body-button-delete">Delete</button>
             </td>
+            </tr>`
+}
+
+function getStatisticElement(obj){
+    return `<tr>
+            <td><i class='bx bx-task task-icon'></i></td>
+            <td>${obj.note_category}</td>
+            <td class="created">${obj.active}</td>
+            <td>${obj.archived}</td>
             </tr>`
 }
 
@@ -151,16 +181,9 @@ function showForm() {
     form.classList.remove('hidden');
 }
 
-function statistic() {
-    const tasks = notes.filter(elem => elem.category == 'Task').length;
-    const archivedTasks = notes.filter(elem => elem.category == 'Task' && elem.archive == true).length;
-
-    const thoughts = notes.filter(elem => elem.category == 'Random thought').length;
-    const archivedThougs = notes.filter(elem => elem.category == 'Random thought' && elem.archive == true).length;
-
-    const ideas = notes.filter(elem => elem.category == 'Idea').length;
-    const archivedIdeas = notes.filter(elem => elem.category == 'Idea' && elem.archive == true).length;
+function createCategories() {
+    const categories = getCategories();
+    for (let category of categories)
+        categorySelect.insertAdjacentHTML('beforeend', `<option value=${category}>${category}</option>`);
 }
-
-
 

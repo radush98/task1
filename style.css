@@ -29,11 +29,11 @@ td{
     height: 60px;
 }
 
-#first-column{
+.first-column{
     width:30px;
 }
 
-#last-column{
+.last-column{
     width:150px;
 }
 
@@ -46,17 +46,15 @@ col{
 }
 
 /*add btn*/
-#add-btn{
-    margin-top: 15px;
-    position: absolute;
-    right:0;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    height:25px;
-    width:100px;
+.main-controls{
+    margin-top: 25px;
+    width:fit-content;
+    margin-left:auto;
+}
+
+.main-controls > button{
+    height: 25px;
+    padding:0 5px;
 }
 
 /*form styles*/
@@ -110,7 +108,7 @@ col{
 }
 
 .bottom-table{
-    margin-top: 70px;
+    margin-top: 40px;
     overflow-y:scroll;
     height:25vh;
 }
@@ -122,3 +120,30 @@ col{
 #bottom-first-col{
     width:25px;
 }
+
+/*archived table */
+.archived-table{
+    position:absolute;
+    top:0;
+    left:0;
+    padding:25px;
+    background-color:rgba(17, 17, 17,0.8);
+    color:white;
+    height:100vh;
+}
+
+.archived-table > h2{
+    text-align: center;
+    margin-bottom:16px;
+}
+
+#close-archived{
+    border:none;
+    background-color:transparent;
+    position:absolute;
+    right:25px;
+    top:25px;
+    color:white;
+    cursor: pointer;
+}
+
