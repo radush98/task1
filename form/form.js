@@ -58,7 +58,7 @@ function archive(row) {
 function fillForm(index) {
     name.value = notes[index].name;
     category.value = notes[index].category;
-    notes.value = notes[index].content;
+    content.value = notes[index].content;
     position = index;
 }
 
